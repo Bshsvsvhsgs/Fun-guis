@@ -1,0 +1,148 @@
+local gui = Instance.new("ScreenGui")
+gui.Name = "ScriptLockerGui"
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+gui.DisplayOrder = 10
+
+local background = Instance.new("Frame")
+background.Name = "Background"
+background.Size = UDim2.new(0.6, 0, 0.6, 0)
+background.Position = UDim2.new(0.2, 0, 0.2, 0)
+background.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+background.BorderSizePixel = 0
+background.Active = true
+background.Draggable = true
+background.Parent = gui
+
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "Title"
+titleLabel.Size = UDim2.new(1, 0, 0, 30)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.BackgroundColor3 = Color3.fromRGB(139, 0, 0)
+titleLabel.BorderSizePixel = 0
+titleLabel.Font = Enum.Font.SourceSans
+titleLabel.Text = "Script locker v1"
+titleLabel.TextColor3 = Color3.new(1, 1, 1)
+titleLabel.TextSize = 24
+titleLabel.Parent = background
+
+local passwordTextBox = Instance.new("TextBox")
+passwordTextBox.Name = "PasswordTextBox"
+passwordTextBox.Size = UDim2.new(0.8, 0, 0, 30)
+passwordTextBox.Position = UDim2.new(0.1, 0, 0, 50)
+passwordTextBox.BackgroundColor3 = Color3.new(1, 1, 1)
+passwordTextBox.BorderSizePixel = 0
+passwordTextBox.Font = Enum.Font.SourceSans
+passwordTextBox.TextSize = 18
+passwordTextBox.PlaceholderText = "Введите пароль"
+passwordTextBox.TextColor3 = Color3.new(0, 0, 0)
+passwordTextBox.Parent = background
+
+local enterButton = Instance.new("TextButton")
+enterButton.Name = "EnterButton"
+enterButton.Size = UDim2.new(0.4, 0, 0, 30)
+enterButton.Position = UDim2.new(0.05, 0, 0, 100)
+enterButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+enterButton.BorderSizePixel = 0
+enterButton.Font = Enum.Font.SourceSans
+enterButton.Text = "Ввести"
+enterButton.TextColor3 = Color3.new(1, 1, 1)
+enterButton.TextSize = 18
+enterButton.Parent = background
+
+local infoButton = Instance.new("TextButton")
+infoButton.Name = "InfoButton"
+infoButton.Size = UDim2.new(0.4, 0, 0, 30)
+infoButton.Position = UDim2.new(0.55, 0, 0, 100)
+infoButton.BackgroundColor3 = Color3.new(0, 0, 1)
+infoButton.BorderSizePixel = 0
+infoButton.Font = Enum.Font.SourceSans
+infoButton.Text = "Информация"
+infoButton.TextColor3 = Color3.new(1, 1, 1)
+infoButton.TextSize = 18
+infoButton.Parent = background
+
+local function checkPassword(password)
+    local correctPassword = Parol
+    
+    if password == correctPassword then       
+        wait(3)
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Script locker v1",
+            Text = "Пароль верный!",
+            Duration = 5
+        })
+        wait(3)
+        
+        loadstring(ScriptToExecute)()
+        
+        wait(1)
+        background:Destroy()
+    else        
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Script locker v1",
+            Text = "Неверный пароль!",
+            Duration = 5
+        })
+    end
+end
+
+enterButton.MouseButton1Click:Connect(function()
+    local password = passwordTextBox.Text
+    checkPassword(password)
+end)
+
+local infoGui = Instance.new("Frame")
+infoGui.Name = "InfoGui"
+infoGui.Size = UDim2.new(0, 200, 0, 100)
+infoGui.Position = UDim2.new(0.5, -100, 0.5, -50)
+infoGui.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+infoGui.BorderSizePixel = 0
+infoGui.Active = true
+infoGui.Draggable = true
+infoGui.Visible = false
+infoGui.Parent = gui
+
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Size = UDim2.new(0, 20, 0, 20)
+closeButton.Position = UDim2.new(0.9, 0, 0, 0)
+closeButton.BackgroundColor3 = Color3.new(1, 0, 0)
+closeButton.BorderSizePixel = 0
+closeButton.Font = Enum.Font.SourceSans
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.new(1, 1, 1)
+closeButton.Parent = infoGui
+
+local infoLabel = Instance.new("TextLabel")
+infoLabel.Name = "InfoLabel"
+infoLabel.Size = UDim2.new(1, 0, 0, 30)
+infoLabel.Position = UDim2.new(0, 0, 0, 0)
+infoLabel.BackgroundColor3 = Color3.fromRGB(139, 0, 0)
+infoLabel.BorderSizePixel = 0
+infoLabel.Font = Enum.Font.SourceSans
+infoLabel.Text = "Информация"
+infoLabel.TextColor3 = Color3.new(1, 1, 1)
+infoLabel.Parent = infoGui
+
+local infoText = Instance.new("TextLabel")
+infoText.Name = "InfoText"
+infoText.Size = UDim2.new(1, 0, 0, 30)
+infoText.Position = UDim2.new(0, 0, 0, 40)
+infoText.BackgroundColor3 = Color3.new(1, 1, 1)
+infoText.BorderSizePixel = 0
+infoText.Font = Enum.Font.SourceSans
+infoText.Text = "Скрипт был защищён Script locker v1"
+infoText.TextColor3 = Color3.new(0, 0, 0)
+infoText.Parent = infoGui
+
+if Credits ~= "@bkslaip" then
+    game.Players.LocalPlayer:Kick("НЕ УДАЛЯЙ КРЕДИТЫ, А ТО КИНУ ТЕБЯ В BLACKLIST")
+end
+
+closeButton.MouseButton1Click:Connect(function()
+    infoGui.Visible = false
+end)
+
+infoButton.MouseButton1Click:Connect(function()
+    infoGui.Visible = true
+end)
